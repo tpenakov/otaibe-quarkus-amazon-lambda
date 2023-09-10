@@ -1,0 +1,1 @@
+# otaibe-quarkus-amazon-lambda
