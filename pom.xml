@@ -3,14 +3,29 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>io.quarkiverse.amazonservices</groupId>
-        <artifactId>quarkus-amazon-services-build-parent</artifactId>
-        <version>999-SNAPSHOT</version>
+        <groupId>io.quarkiverse</groupId>
+        <artifactId>quarkiverse-parent</artifactId>
+        <version>15</version>
     </parent>
 
-    <artifactId>quarkus-amazon-s3-parent</artifactId>
-    <name>Quarkus - Amazon Services - S3</name>
+    <groupId>otaibe.quarkus.amazon.lambda</groupId>
+    <artifactId>otaibe-quarkus-amazon-lambda-parent</artifactId>
+    <name>Quarkus - Amazon Services - Lambda</name>
+    <version>999-SNAPSHOT</version>
     <packaging>pom</packaging>
+
+    <properties>
+        <compiler-plugin.version>3.11.0</compiler-plugin.version>
+        <maven.jar.plugin.version>3.3.0</maven.jar.plugin.version>
+        <maven.compiler.parameters>true</maven.compiler.parameters>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <quarkus.version>3.3.0</quarkus.version>
+        <awssdk.version>2.20.128</awssdk.version>
+        <awscrt.version>0.25.0</awscrt.version>
+    </properties>
 
     <dependencyManagement>
         <dependencies>
@@ -36,4 +51,36 @@
         <module>deployment</module>
     </modules>
 
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>io.quarkus</groupId>
+                    <artifactId>quarkus-maven-plugin</artifactId>
+                    <version>${quarkus.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>io.quarkus</groupId>
+                    <artifactId>quarkus-extension-maven-plugin</artifactId>
+                    <version>${quarkus.version}</version>
+                    <executions>
+                        <execution>
+                            <phase>compile</phase>
+                            <goals>
+                                <goal>extension-descriptor</goal>
+                            </goals>
+                            <configuration>
+                                <deployment>${project.groupId}:${project.artifactId}-deployment:${project.version}
+                                </deployment>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${compiler-plugin.version}</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
 </project>
